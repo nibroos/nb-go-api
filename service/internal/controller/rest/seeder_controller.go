@@ -3,6 +3,7 @@ package rest
 import (
 	"database/sql"
 	"net/http"
+	"os"
 	"path/filepath"
 
 	"github.com/gofiber/fiber/v2"
@@ -32,9 +33,15 @@ func (c *SeederController) RunSeeders(ctx *fiber.Ctx) error {
 		"20241105045700_create_mix_values_address_seeder.sql",
 	}
 
+	// Get the seed files directory from the environment variable
+	seedDir := os.Getenv("SEEDER_DIR")
+	if seedDir == "" {
+		seedDir = "internal/database/seeders" // Default directory
+	}
+
 	// Prepend the directory path to each seed file
 	for i, file := range seedFiles {
-		seedFiles[i] = filepath.Join("internal", "database", "seeders", file)
+		seedFiles[i] = filepath.Join(seedDir, file)
 	}
 
 	err := utils.ExecuteSeeders(c.db, seedFiles)

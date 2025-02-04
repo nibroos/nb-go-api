@@ -1,5 +1,8 @@
 FROM golang:1.23-alpine AS builder
 
+# Set the SEEDER_DIR environment variable
+ENV SEEDER_DIR=/apps/internal/database/seeders
+
 RUN apk add --no-cache make curl
 
 # Install golang-migrate
@@ -53,4 +56,7 @@ ENV HOME=/home/appuser
 RUN mkdir -p /go && chown -R appuser:appgroup /go
 # USER appuser
 
+WORKDIR /apps
+
+# ENTRYPOINT ["/apps/app"]
 ENTRYPOINT ["/apps/app"]

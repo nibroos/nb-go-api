@@ -4,3 +4,4 @@ prod-docker-compose.yml
 learn-concur
 service
 .env
+logs
