@@ -50,7 +50,7 @@ Change bash directory to each service.
 ## 📔 Notes & Issues
 
 #### dial tcp: lookup postgres: no such host
-Change the makefile DB_HOST to `localhost` if run in local env, when running on docker, change it to `postgres`.
+Change the makefile DB_HOST to `localhost` if run in local env, when running on docker, change it to `postgres`, make sure no space in the value.
 
 #### run multiple seeder in one execution
 You can run multiple seeder references in the seeder_controller.go file.
@@ -58,7 +58,7 @@ You can run multiple seeder references in the seeder_controller.go file.
 #### error running migration fix migration
 Change the 'version' column name on schema_migrations to latest succeed migration, change the 'dirty' column to false, then run the migration again
 
-#### postgre extensions
+#### error function gen_salt(unknown) does not exist, postgre extensions
 `CREATE EXTENSION IF NOT EXISTS pgcrypto;`
 
 ### 📗 API Document

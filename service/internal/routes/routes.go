@@ -18,6 +18,10 @@ func SetupRoutes(app *fiber.App, gormDB *gorm.DB, sqlDB *sqlx.DB) {
 	})
 
 	version := app.Group("/api/v1")
+
+	// Seeder route
+	version.Post("/seeders/run", rest.NewSeederController(sqlDB.DB).RunSeeders)
+
 	auth := version.Group("/auth")
 
 	version.Get("/health", func(c *fiber.Ctx) error {
@@ -46,9 +50,6 @@ func SetupRoutes(app *fiber.App, gormDB *gorm.DB, sqlDB *sqlx.DB) {
 
 	addresses := version.Group("/addresses")
 	SetupAddressRoutes(addresses, gormDB, sqlDB)
-
-	// Seeder route
-	version.Post("/seeders/run", rest.NewSeederController(sqlDB.DB).RunSeeders)
 
 	// Scheduler route
 	// cron := cron.New()
